@@ -1,35 +1,37 @@
-/* Vercel-inspired documentation styles */
+/* Vercel-inspired documentation styles using theme variables */
 
-/* Clean, minimal sidebar */
+/* Clean, minimal sidebar - always dark */
 [data-sidebar] {
-  border-right: 1px solid #eaeaea;
-  background: #ffffff;
+  border-right: 1px solid var(--color-border);
+  background: var(--color-sidebar-background);
+  color: var(--color-sidebar-foreground);
+  padding-top: 5rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  [data-sidebar] {
-    border-right-color: #333333;
-    background: #000000;
-  }
+[data-sidebar] a {
+  color: var(--color-sidebar-muted);
+  transition: color 0.15s ease;
+}
+
+[data-sidebar] a:hover {
+  color: var(--color-sidebar-foreground);
+}
+
+[data-sidebar] [data-active='true'] {
+  color: var(--color-sidebar-foreground);
 }
 
 /* Simple navigation bar */
 [data-nav] {
-  border-bottom: 1px solid #eaeaea;
-  background: #ffffff;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-background);
 }
 
-@media (prefers-color-scheme: dark) {
-  [data-nav] {
-    border-bottom-color: #333333;
-    background: #000000;
-  }
-}
-
-/* Content area - Vercel style */
+/* Content area - Vercel style with more top padding */
 article {
   max-width: 768px;
-  padding: 3rem 1.5rem;
+  padding: 5rem 1.5rem 3rem;
+  background: var(--color-background);
 }
 
 /* Typography - Vercel inspired */
@@ -39,7 +41,7 @@ article h1 {
   line-height: 1.2;
   letter-spacing: -0.04em;
   margin-bottom: 1rem;
-  color: #000000;
+  color: var(--color-foreground);
 }
 
 article h2 {
@@ -49,7 +51,7 @@ article h2 {
   letter-spacing: -0.03em;
   margin-top: 3rem;
   margin-bottom: 1rem;
-  color: #000000;
+  color: var(--color-foreground);
 }
 
 article h3 {
@@ -58,15 +60,7 @@ article h3 {
   line-height: 1.4;
   margin-top: 2rem;
   margin-bottom: 0.75rem;
-  color: #000000;
-}
-
-@media (prefers-color-scheme: dark) {
-  article h1,
-  article h2,
-  article h3 {
-    color: #ffffff;
-  }
+  color: var(--color-foreground);
 }
 
 /* Paragraphs */
@@ -74,13 +68,7 @@ article p {
   font-size: 1rem;
   line-height: 1.75;
   margin: 1.25rem 0;
-  color: #666666;
-}
-
-@media (prefers-color-scheme: dark) {
-  article p {
-    color: #999999;
-  }
+  color: var(--color-muted-foreground);
 }
 
 /* Links - Vercel style */
@@ -102,8 +90,8 @@ article a:hover {
 
 /* Inline code */
 article code {
-  background: #f5f5f5;
-  border: 1px solid #eaeaea;
+  background: var(--color-muted);
+  border: 1px solid var(--color-border);
   border-radius: 5px;
   padding: 0.2rem 0.4rem;
   font-size: 0.875rem;
@@ -113,8 +101,6 @@ article code {
 
 @media (prefers-color-scheme: dark) {
   article code {
-    background: #1a1a1a;
-    border-color: #333333;
     color: #ff6b6b;
   }
 }
@@ -124,7 +110,7 @@ article ul,
 article ol {
   margin: 1.25rem 0;
   padding-left: 1.75rem;
-  color: #666666;
+  color: var(--color-muted-foreground);
 }
 
 article li {
@@ -132,50 +118,43 @@ article li {
   line-height: 1.75;
 }
 
-@media (prefers-color-scheme: dark) {
-  article ul,
-  article ol {
-    color: #999999;
-  }
-}
-
 article li strong {
-  color: #000000;
+  color: var(--color-foreground);
   font-weight: 600;
-}
-
-@media (prefers-color-scheme: dark) {
-  article li strong {
-    color: #ffffff;
-  }
 }
 
 /* Code blocks */
 article pre {
-  background: #fafafa;
-  border: 1px solid #eaeaea;
+  background: var(--color-muted);
+  border: 1px solid var(--color-border);
   border-radius: 8px;
   padding: 1rem;
   overflow-x: auto;
   margin: 1.5rem 0;
 }
 
-@media (prefers-color-scheme: dark) {
-  article pre {
-    background: #0a0a0a;
-    border-color: #333333;
-  }
-}
-
 article pre code {
   background: transparent;
   border: none;
   padding: 0;
-  color: #000000;
+  color: var(--color-foreground);
 }
 
-@media (prefers-color-scheme: dark) {
-  article pre code {
-    color: #ffffff;
+/* Force same top baseline across sidebar / content / toc columns */
+@media (min-width: 1280px) {
+  :root {
+    --docs-columns-top: 1rem;
+  }
+
+  #nd-sidebar > div:first-child {
+    padding-top: var(--docs-columns-top) !important;
+  }
+
+  #nd-page.docs-page-shell {
+    padding-top: var(--docs-columns-top) !important;
+  }
+
+  #nd-toc {
+    padding-top: var(--docs-columns-top) !important;
   }
 }
