@@ -4,31 +4,6 @@ import { ThemeToggle } from "@/components/theme-toggle";
 export default function Home() {
   return (
     <div className="flex min-h-screen flex-col" style={{ background: 'var(--color-background)', color: 'var(--color-foreground)' }}>
-      <style jsx>{`
-        .nav-link {
-          color: var(--color-muted-foreground);
-          transition: color 0.2s ease;
-        }
-        .nav-link:hover {
-          color: var(--color-foreground);
-        }
-        .btn-primary {
-          background: var(--color-foreground);
-          color: var(--color-background);
-          transition: opacity 0.2s ease;
-        }
-        .btn-primary:hover {
-          opacity: 0.85;
-        }
-        .btn-secondary {
-          border: 1px solid var(--color-border);
-          color: var(--color-foreground);
-          transition: background 0.2s ease;
-        }
-        .btn-secondary:hover {
-          background: var(--color-muted);
-        }
-      `}</style>
       {/* Header */}
       <header className="sticky top-0 z-50 w-full backdrop-blur-sm" style={{ borderBottom: '1px solid var(--color-border)', background: 'var(--color-background)' }}>
         <div className="container mx-auto flex h-16 max-w-7xl items-center justify-between px-6">

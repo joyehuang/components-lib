@@ -37,3 +37,33 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+/* Homepage styles */
+.nav-link {
+  color: var(--color-muted-foreground);
+  transition: color 0.2s ease;
+}
+
+.nav-link:hover {
+  color: var(--color-foreground);
+}
+
+.btn-primary {
+  background: var(--color-foreground);
+  color: var(--color-background);
+  transition: opacity 0.2s ease;
+}
+
+.btn-primary:hover {
+  opacity: 0.85;
+}
+
+.btn-secondary {
+  border: 1px solid var(--color-border);
+  color: var(--color-foreground);
+  transition: background 0.2s ease;
+}
+
+.btn-secondary:hover {
+  background: var(--color-muted);
+}
