@@ -174,7 +174,7 @@ export function ComponentPreview({
       </div>
 
       {/* Preview/Code/CLI Area */}
-      <div className={`overflow-hidden rounded-b-xl ${viewMode === 'code' ? '' : 'border border-[var(--color-border)]'}`}>
+      <div className={`overflow-hidden rounded-b-xl ${viewMode === 'preview' ? 'border border-[var(--color-border)]' : ''}`}>
         {viewMode === 'preview' ? (
           <div className="flex min-h-[400px] items-center justify-center p-8" style={{ background: 'var(--color-background)' }}>
             <div
@@ -189,9 +189,15 @@ export function ComponentPreview({
             </div>
           </div>
         ) : viewMode === 'code' ? (
-          <div className="relative border-0" style={{ background: 'var(--color-background)' }}>
+          <div
+            className="relative rounded-b-xl overflow-hidden"
+            style={{
+              background: 'var(--color-code-background)',
+              border: '1px solid var(--color-code-border)'
+            }}
+          >
             <div
-              className="overflow-x-auto p-6 text-sm [&_pre]:!bg-transparent [&_pre]:!p-0 [&_pre]:!m-0"
+              className="overflow-x-auto p-6 text-sm leading-relaxed [&_pre]:!bg-transparent [&_pre]:!p-0 [&_pre]:!m-0"
               dangerouslySetInnerHTML={{ __html: highlightedCode }}
             />
             <button
@@ -215,15 +221,15 @@ export function ComponentPreview({
             </button>
           </div>
         ) : (
-          <div className="p-6" style={{ background: 'var(--color-muted)' }}>
+          <div className="p-6 rounded-b-xl" style={{ background: 'var(--color-cli-background)' }}>
             <div className="space-y-6">
               <div>
-                <h3 className="mb-3 text-sm font-semibold" style={{ color: 'var(--color-foreground)' }}>
+                <h3 className="mb-3 text-sm font-semibold" style={{ color: 'var(--color-cli-foreground)' }}>
                   Installation
                 </h3>
-                <div className="mb-3 flex items-center gap-2 rounded-lg p-1 w-fit" style={{
-                  background: 'var(--color-background)',
-                  border: '1px solid var(--color-border)'
+                <div className="mb-3 flex items-center gap-1.5 rounded-lg p-1 w-fit" style={{
+                  background: 'var(--color-cli-surface)',
+                  border: '1px solid var(--color-cli-border)'
                 }}>
                   {(['pnpm', 'npm', 'yarn', 'bun'] as PackageManager[]).map((pm) => (
                     <button
@@ -233,48 +239,51 @@ export function ComponentPreview({
                       style={
                         packageManager === pm
                           ? {
-                              background: 'var(--color-muted)',
-                              color: 'var(--color-foreground)',
+                              background: 'var(--color-cli-active)',
+                              color: 'var(--color-cli-foreground)',
                             }
                           : {
-                              color: 'var(--color-muted-foreground)',
+                              color: 'var(--color-cli-muted)',
                             }
                       }
                       onMouseEnter={packageManager !== pm ? (e) => {
-                        e.currentTarget.style.color = 'var(--color-foreground)';
+                        e.currentTarget.style.color = 'var(--color-cli-foreground)';
                       } : undefined}
                       onMouseLeave={packageManager !== pm ? (e) => {
-                        e.currentTarget.style.color = 'var(--color-muted-foreground)';
+                        e.currentTarget.style.color = 'var(--color-cli-muted)';
                       } : undefined}
                     >
                       {pm}
                     </button>
                   ))}
                 </div>
-                <p className="mb-2 text-xs" style={{ color: 'var(--color-muted-foreground)' }}>
+                <p className="mb-2 text-xs" style={{ color: 'var(--color-cli-muted)' }}>
                   1. Install with CLI
                 </p>
-                <div className="group relative rounded-lg p-4" style={{
-                  background: 'var(--color-background)',
-                  border: '1px solid var(--color-border)'
+                <div className="group relative rounded-md p-4" style={{
+                  background: 'var(--color-cli-surface)',
+                  border: '1px solid var(--color-cli-border)'
                 }}>
-                  <code className="font-mono text-sm" style={{ color: 'var(--color-foreground)' }}>
+                  <code className="font-mono text-sm" style={{
+                    color: 'var(--color-cli-foreground)',
+                    letterSpacing: '0'
+                  }}>
                     {cliCommands[packageManager]}
                   </code>
                   <button
                     onClick={() => handleCopy(cliCommands[packageManager])}
-                    className="absolute right-3 top-3 rounded-lg p-2 opacity-0 transition-all duration-150 group-hover:opacity-100 focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]"
+                    className="absolute right-3 top-3 rounded-md p-1.5 opacity-0 transition-all duration-150 group-hover:opacity-100 focus-visible:opacity-100 focus-visible:outline-none"
                     style={{
-                      background: 'var(--color-muted)',
-                      color: 'var(--color-muted-foreground)',
+                      background: 'transparent',
+                      color: 'var(--color-cli-muted)',
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.background = 'var(--color-border)';
-                      e.currentTarget.style.color = 'var(--color-foreground)';
+                      e.currentTarget.style.background = 'var(--color-cli-active)';
+                      e.currentTarget.style.color = 'var(--color-cli-foreground)';
                     }}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.background = 'var(--color-muted)';
-                      e.currentTarget.style.color = 'var(--color-muted-foreground)';
+                      e.currentTarget.style.background = 'transparent';
+                      e.currentTarget.style.color = 'var(--color-cli-muted)';
                     }}
                     aria-label="Copy command"
                   >
@@ -285,36 +294,39 @@ export function ComponentPreview({
 
               <div className="space-y-6">
                 <div>
-                  <h3 className="mb-3 text-sm font-semibold" style={{ color: 'var(--color-foreground)' }}>
+                  <h3 className="mb-3 text-sm font-semibold" style={{ color: 'var(--color-cli-foreground)' }}>
                     Manual Installation
                   </h3>
                   <div className="space-y-3">
                     {dependencies.length > 0 && (
                       <div>
-                        <p className="mb-2 text-xs" style={{ color: 'var(--color-muted-foreground)' }}>
+                        <p className="mb-2 text-xs" style={{ color: 'var(--color-cli-muted)' }}>
                           2. Install dependencies
                         </p>
-                        <div className="group relative rounded-lg p-4" style={{
-                          background: 'var(--color-background)',
-                          border: '1px solid var(--color-border)'
+                        <div className="group relative rounded-md p-4" style={{
+                          background: 'var(--color-cli-surface)',
+                          border: '1px solid var(--color-cli-border)'
                         }}>
-                          <code className="font-mono text-sm" style={{ color: 'var(--color-foreground)' }}>
+                          <code className="font-mono text-sm" style={{
+                            color: 'var(--color-cli-foreground)',
+                            letterSpacing: '0'
+                          }}>
                             {dependencyCommands[packageManager]}
                           </code>
                           <button
                             onClick={() => handleCopy(dependencyCommands[packageManager])}
-                            className="absolute right-3 top-3 rounded-lg p-2 opacity-0 transition-all duration-150 group-hover:opacity-100 focus-visible:opacity-100"
+                            className="absolute right-3 top-3 rounded-md p-1.5 opacity-0 transition-all duration-150 group-hover:opacity-100 focus-visible:opacity-100"
                             style={{
-                              background: 'var(--color-muted)',
-                              color: 'var(--color-muted-foreground)',
+                              background: 'transparent',
+                              color: 'var(--color-cli-muted)',
                             }}
                             onMouseEnter={(e) => {
-                              e.currentTarget.style.background = 'var(--color-border)';
-                              e.currentTarget.style.color = 'var(--color-foreground)';
+                              e.currentTarget.style.background = 'var(--color-cli-active)';
+                              e.currentTarget.style.color = 'var(--color-cli-foreground)';
                             }}
                             onMouseLeave={(e) => {
-                              e.currentTarget.style.background = 'var(--color-muted)';
-                              e.currentTarget.style.color = 'var(--color-muted-foreground)';
+                              e.currentTarget.style.background = 'transparent';
+                              e.currentTarget.style.color = 'var(--color-cli-muted)';
                             }}
                             aria-label="Copy dependencies"
                           >
@@ -324,24 +336,22 @@ export function ComponentPreview({
                       </div>
                     )}
                     <div>
-                      <p className="mb-2 text-xs" style={{ color: 'var(--color-muted-foreground)' }}>
+                      <p className="mb-2 text-xs" style={{ color: 'var(--color-cli-muted)' }}>
                         {dependencies.length > 0 ? '3' : '2'}. Copy component code
                       </p>
                       <button
                         onClick={() => setViewMode('code')}
-                        className="w-full rounded-lg px-4 py-3 text-sm transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]"
+                        className="w-full rounded-md px-4 py-3 text-sm transition-colors duration-150 focus-visible:outline-none"
                         style={{
-                          background: 'var(--color-background)',
-                          border: '1px solid var(--color-border)',
-                          color: 'var(--color-foreground)',
+                          background: 'var(--color-cli-surface)',
+                          border: '1px solid var(--color-cli-border)',
+                          color: 'var(--color-cli-foreground)',
                         }}
                         onMouseEnter={(e) => {
-                          e.currentTarget.style.borderColor = 'var(--color-muted-foreground)';
-                          e.currentTarget.style.background = 'var(--color-muted)';
+                          e.currentTarget.style.background = 'var(--color-cli-active)';
                         }}
                         onMouseLeave={(e) => {
-                          e.currentTarget.style.borderColor = 'var(--color-border)';
-                          e.currentTarget.style.background = 'var(--color-background)';
+                          e.currentTarget.style.background = 'var(--color-cli-surface)';
                         }}
                       >
                         View code to copy →
@@ -352,23 +362,23 @@ export function ComponentPreview({
 
                 {files.length > 0 && (
                   <div>
-                    <h3 className="mb-3 text-sm font-semibold" style={{ color: 'var(--color-foreground)' }}>
+                    <h3 className="mb-3 text-sm font-semibold" style={{ color: 'var(--color-cli-foreground)' }}>
                       Component Files
                     </h3>
                     <div className="space-y-2">
                       {files.map((file, index) => (
                         <div
                           key={index}
-                          className="flex items-center justify-between rounded-lg px-4 py-3"
+                          className="flex items-center justify-between rounded-md px-4 py-3"
                           style={{
-                            background: 'var(--color-background)',
-                            border: '1px solid var(--color-border)'
+                            background: 'var(--color-cli-surface)',
+                            border: '1px solid var(--color-cli-border)'
                           }}
                         >
-                          <span className="font-mono text-sm" style={{ color: 'var(--color-foreground)' }}>
+                          <span className="font-mono text-sm" style={{ color: 'var(--color-cli-foreground)' }}>
                             {file.path}
                           </span>
-                          <span className="text-xs" style={{ color: 'var(--color-muted-foreground)' }}>{file.name}</span>
+                          <span className="text-xs" style={{ color: 'var(--color-cli-muted)' }}>{file.name}</span>
                         </div>
                       ))}
                     </div>
