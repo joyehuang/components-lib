@@ -39,8 +39,8 @@ export function ComponentPreview({
       codeToHtml(code, {
         lang: 'tsx',
         themes: {
-          light: 'github-light',
-          dark: 'github-dark',
+          light: 'vitesse-light',
+          dark: 'vitesse-dark',
         },
       }).then(setHighlightedCode);
     }
@@ -77,7 +77,7 @@ export function ComponentPreview({
   };
 
   return (
-    <div className="not-prose my-8">
+    <div className="component-preview not-prose my-8">
       {/* Header */}
       <div className="mb-6">
         <h2 className="mb-2 text-3xl font-bold text-[var(--color-foreground)]">
@@ -189,39 +189,21 @@ export function ComponentPreview({
             </div>
           </div>
         ) : viewMode === 'code' ? (
-          <div
-            className="relative rounded-b-xl overflow-hidden"
-            style={{
-              background: 'var(--color-code-background)',
-              border: '1px solid var(--color-code-border)'
-            }}
-          >
+          <div className="relative overflow-hidden rounded-b-xl border border-[var(--color-code-border)] bg-[var(--color-code-background)]">
             <div
-              className="overflow-x-auto p-6 text-sm leading-relaxed [&_pre]:!bg-transparent [&_pre]:!p-0 [&_pre]:!m-0"
+              className="overflow-x-auto p-6 text-sm leading-relaxed text-[var(--color-code-foreground)] [&_pre]:!m-0 [&_pre]:!border-0 [&_pre]:!bg-transparent [&_pre]:!p-0 [&_pre]:!shadow-none"
               dangerouslySetInnerHTML={{ __html: highlightedCode }}
             />
             <button
               onClick={() => handleCopy(code)}
-              className="absolute right-4 top-4 rounded-lg p-2 transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]"
-              style={{
-                background: 'var(--color-muted)',
-                color: 'var(--color-muted-foreground)',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'var(--color-border)';
-                e.currentTarget.style.color = 'var(--color-foreground)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'var(--color-muted)';
-                e.currentTarget.style.color = 'var(--color-muted-foreground)';
-              }}
+              className="absolute right-4 top-4 rounded-lg border border-[var(--color-code-border)] bg-[var(--color-code-button-background)] p-2 text-[var(--color-code-button-foreground)] transition-colors duration-150 hover:bg-[var(--color-code-button-background-hover)] hover:text-[var(--color-code-foreground)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]"
               aria-label="Copy code"
             >
               {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
             </button>
           </div>
         ) : (
-          <div className="p-6 rounded-b-xl" style={{ background: 'var(--color-cli-background)' }}>
+          <div className="rounded-b-xl border border-[var(--color-cli-border)] p-6" style={{ background: 'var(--color-cli-background)' }}>
             <div className="space-y-6">
               <div>
                 <h3 className="mb-3 text-sm font-semibold" style={{ color: 'var(--color-cli-foreground)' }}>

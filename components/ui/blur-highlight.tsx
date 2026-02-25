@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef, useMemo } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 
 interface BlurHighlightProps {
   children: React.ReactNode;
@@ -193,7 +193,7 @@ interface HighlightSpanProps {
   extraClass: string;
 }
 
-function HighlightSpan({
+const HighlightSpan = React.memo<HighlightSpanProps>(function HighlightSpan({
   children,
   color,
   isInView,
@@ -202,7 +202,7 @@ function HighlightSpan({
   duration,
   getStyle,
   extraClass,
-}: HighlightSpanProps) {
+}) {
   const [progress, setProgress] = useState(0);
   const rafRef = useRef<number | null>(null);
 
@@ -250,4 +250,4 @@ function HighlightSpan({
       {children}
     </span>
   );
-}
+});

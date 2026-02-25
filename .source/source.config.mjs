@@ -3,7 +3,16 @@ import { defineDocs, defineConfig } from "fumadocs-mdx/config";
 var docs = defineDocs({
   dir: "content/docs"
 });
-var source_config_default = defineConfig();
+var source_config_default = defineConfig({
+  mdxOptions: {
+    rehypeCodeOptions: {
+      themes: {
+        light: "vitesse-light",
+        dark: "vitesse-dark"
+      }
+    }
+  }
+});
 export {
   source_config_default as default,
   docs

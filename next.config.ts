@@ -7,7 +7,22 @@ const withMDX = createMDX({
 });
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  reactStrictMode: true,
+  productionBrowserSourceMaps: false,
+
+  images: {
+    formats: ['image/avif', 'image/webp'],
+  },
+
+  experimental: {
+    optimizePackageImports: ['fumadocs-ui', 'fumadocs-core'],
+  },
+
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production'
+      ? { exclude: ['error', 'warn'] }
+      : false,
+  },
 };
 
 export default withMDX(nextConfig);

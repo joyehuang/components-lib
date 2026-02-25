@@ -16,20 +16,33 @@
   --color-accent: #d97706;
   --color-accent-hover: #b45309;
   --color-accent-foreground: #ffffff;
-  --color-code: #c2410c;
 
-  /* Code block colors - clean and subtle */
-  --color-code-background: #f6f8fa;
-  --color-code-border: #d0d7de;
-  --color-code-selection: rgba(84, 174, 255, 0.15);
+  /* Code palette */
+  --color-code-inline-background: #f7f1e5;
+  --color-code-inline-border: #e4d7c2;
+  --color-code-inline-foreground: #ad4a16;
+  --color-code-background: #f5efe3;
+  --color-code-surface: #ede4d4;
+  --color-code-border: #d9cab1;
+  --color-code-foreground: #2f2921;
+  --color-code-muted-foreground: #6f6457;
+  --color-code-button-background: #e5d9c5;
+  --color-code-button-background-hover: #dac9b0;
+  --color-code-button-foreground: #5f5242;
+  --color-code-command-background: #fdf8ee;
+  --color-code-command-border: #e5d9c3;
+  --color-code-command-foreground: #312b23;
+  --color-code-command-muted: #77695a;
+  --color-code-selection: rgba(217, 119, 6, 0.2);
 
-  /* CLI colors - terminal style */
-  --color-cli-background: #0d0d0d;
-  --color-cli-surface: #1a1a1a;
-  --color-cli-border: #2a2a2a;
-  --color-cli-foreground: #e8e8e8;
-  --color-cli-muted: #6b6b6b;
-  --color-cli-active: #2a2a2a;
+  /* CLI colors */
+  --color-cli-background: #f2eadb;
+  --color-cli-surface: #fbf5e9;
+  --color-cli-border: #ddd0b9;
+  --color-cli-foreground: #332d24;
+  --color-cli-muted: #7d705f;
+  --color-cli-active: #e9dbc4;
+  --color-cli-selection: rgba(217, 119, 6, 0.16);
 
   /* Sidebar colors */
   --color-sidebar-background: #1c1814;
@@ -47,20 +60,33 @@
   --color-accent: #3b9eff;
   --color-accent-hover: #60b5ff;
   --color-accent-foreground: #ffffff;
-  --color-code: #4ade80;
 
-  /* Code block colors - github dark style */
-  --color-code-background: #161b22;
-  --color-code-border: #30363d;
-  --color-code-selection: rgba(56, 139, 253, 0.15);
+  /* Code palette */
+  --color-code-inline-background: #152238;
+  --color-code-inline-border: #2b3d59;
+  --color-code-inline-foreground: #78c8ff;
+  --color-code-background: #101a2a;
+  --color-code-surface: #0d1524;
+  --color-code-border: #273a56;
+  --color-code-foreground: #dce8ff;
+  --color-code-muted-foreground: #8ea2c4;
+  --color-code-button-background: #19283c;
+  --color-code-button-background-hover: #22354e;
+  --color-code-button-foreground: #adc2e3;
+  --color-code-command-background: #131f31;
+  --color-code-command-border: #2a3f5f;
+  --color-code-command-foreground: #e0ebff;
+  --color-code-command-muted: #8aa2c5;
+  --color-code-selection: rgba(59, 158, 255, 0.24);
 
-  /* CLI colors - terminal style (same for both modes) */
-  --color-cli-background: #0d0d0d;
-  --color-cli-surface: #1a1a1a;
-  --color-cli-border: #2a2a2a;
-  --color-cli-foreground: #e8e8e8;
-  --color-cli-muted: #6b6b6b;
-  --color-cli-active: #2a2a2a;
+  /* CLI colors */
+  --color-cli-background: #0b111b;
+  --color-cli-surface: #121b2a;
+  --color-cli-border: #27374f;
+  --color-cli-foreground: #e3ecff;
+  --color-cli-muted: #869cbc;
+  --color-cli-active: #1b2b43;
+  --color-cli-selection: rgba(255, 255, 255, 0.2);
 
   /* Sidebar colors */
   --color-sidebar-background: #070a0e;
@@ -154,12 +180,12 @@ article a:focus-visible {
 
 /* Inline code */
 article code {
-  background: var(--color-code-background);
-  border: 1px solid var(--color-code-border);
+  background: var(--color-code-inline-background);
+  border: 1px solid var(--color-code-inline-border);
   border-radius: 0.3rem;
   padding: 0.15rem 0.4rem;
   font-size: 0.875em;
-  color: var(--color-code);
+  color: var(--color-code-inline-foreground);
   font-weight: 500;
   letter-spacing: -0.01em;
   font-feature-settings: "liga" 1, "calt" 1;
@@ -193,7 +219,7 @@ article pre code {
   background: transparent;
   border: none;
   padding: 0;
-  color: var(--color-foreground);
+  color: var(--color-code-foreground);
   font-weight: 400;
   letter-spacing: -0.01em;
   font-feature-settings: "liga" 1, "calt" 1;
@@ -244,13 +270,13 @@ article pre::-webkit-scrollbar-track,
 
 article pre::-webkit-scrollbar-thumb,
 .component-preview pre::-webkit-scrollbar-thumb {
-  background: var(--color-border);
+  background: var(--color-code-button-background);
   border-radius: 4px;
 }
 
 article pre::-webkit-scrollbar-thumb:hover,
 .component-preview pre::-webkit-scrollbar-thumb:hover {
-  background: var(--color-muted-foreground);
+  background: var(--color-code-button-background-hover);
 }
 
 /* CLI styling - terminal aesthetic */
@@ -283,7 +309,7 @@ article pre::-webkit-scrollbar-thumb:hover,
 
 /* CLI text selection */
 [style*="--color-cli-background"] ::selection {
-  background: rgba(255, 255, 255, 0.2);
+  background: var(--color-cli-selection);
   color: inherit;
 }
 

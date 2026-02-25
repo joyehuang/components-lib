@@ -1,12 +1,33 @@
-import { source } from '@/lib/source';
+import { source, getCachedPage } from '@/lib/source';
 import Link from 'next/link';
-import {
-  DocsPage,
-  DocsBody,
-  DocsDescription,
-  DocsTitle,
-} from 'fumadocs-ui/page';
+import { DocsPage, DocsBody } from 'fumadocs-ui/page';
 import { notFound } from 'next/navigation';
+
+// Extract tableOfContent config to prevent re-renders
+const TABLE_OF_CONTENT_CONFIG = {
+  style: 'clerk',
+  header: (
+    <p className="mb-4 text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
+      On This Page
+    </p>
+  ),
+  footer: (
+    <div className="mt-6 space-y-2 border-t border-zinc-200 pt-4 dark:border-zinc-800">
+      <Link
+        href="/docs/installation"
+        className="block text-sm text-[var(--color-accent)] transition-opacity duration-150 hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 rounded"
+      >
+        Installation Guide →
+      </Link>
+      <Link
+        href="/"
+        className="block text-sm text-[var(--color-accent)] transition-opacity duration-150 hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 rounded"
+      >
+        Component Gallery →
+      </Link>
+    </div>
+  ),
+} as const;
 
 export default async function Page({
   params,
@@ -14,8 +35,7 @@ export default async function Page({
   params: Promise<{ slug?: string[] }>;
 }) {
   const { slug } = await params;
-  const page = source.getPage(slug);
-  const isIndexPage = !slug || slug.length === 0;
+  const page = getCachedPage(slug);
 
   if (!page) notFound();
 
@@ -25,35 +45,9 @@ export default async function Page({
     <DocsPage
       toc={page.data.toc}
       full={page.data.full}
-      className="docs-page-shell"
-      tableOfContent={{
-        style: 'clerk',
-        header: <p className="docs-toc-header">On this page</p>,
-        footer: (
-          <Link href="/docs/installation" className="docs-toc-footer-link">
-            Read installation guide
-          </Link>
-        ),
-      }}
+      tableOfContent={TABLE_OF_CONTENT_CONFIG}
     >
-      <div className="docs-page-hero">
-        <p className="docs-page-kicker">
-          {isIndexPage ? 'Documentation Overview' : 'Component Guide'}
-        </p>
-        <DocsTitle className="docs-page-title">{page.data.title}</DocsTitle>
-        <DocsDescription className="docs-page-description">
-          {page.data.description}
-        </DocsDescription>
-        <div className="docs-page-actions">
-          <Link href="/docs" className="docs-action-link">
-            Docs Home
-          </Link>
-          <Link href="/" className="docs-action-link">
-            Component Gallery
-          </Link>
-        </div>
-      </div>
-      <DocsBody className="docs-page-body">
+      <DocsBody>
         <Content />
       </DocsBody>
     </DocsPage>
@@ -70,7 +64,7 @@ export async function generateMetadata({
   params: Promise<{ slug?: string[] }>;
 }) {
   const { slug } = await params;
-  const page = source.getPage(slug);
+  const page = getCachedPage(slug);
 
   if (!page) notFound();
 
