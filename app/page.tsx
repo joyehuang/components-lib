@@ -4,6 +4,31 @@ import { ThemeToggle } from "@/components/theme-toggle";
 export default function Home() {
   return (
     <div className="flex min-h-screen flex-col" style={{ background: 'var(--color-background)', color: 'var(--color-foreground)' }}>
+      <style jsx>{`
+        .nav-link {
+          color: var(--color-muted-foreground);
+          transition: color 0.2s ease;
+        }
+        .nav-link:hover {
+          color: var(--color-foreground);
+        }
+        .btn-primary {
+          background: var(--color-foreground);
+          color: var(--color-background);
+          transition: opacity 0.2s ease;
+        }
+        .btn-primary:hover {
+          opacity: 0.85;
+        }
+        .btn-secondary {
+          border: 1px solid var(--color-border);
+          color: var(--color-foreground);
+          transition: background 0.2s ease;
+        }
+        .btn-secondary:hover {
+          background: var(--color-muted);
+        }
+      `}</style>
       {/* Header */}
       <header className="sticky top-0 z-50 w-full backdrop-blur-sm" style={{ borderBottom: '1px solid var(--color-border)', background: 'var(--color-background)' }}>
         <div className="container mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
@@ -11,23 +36,10 @@ export default function Home() {
             Components
           </Link>
           <nav className="flex items-center gap-4">
-            <Link
-              href="/docs"
-              className="text-sm font-medium transition-colors"
-              style={{ color: 'var(--color-muted-foreground)' }}
-              onMouseEnter={(e) => e.currentTarget.style.color = 'var(--color-foreground)'}
-              onMouseLeave={(e) => e.currentTarget.style.color = 'var(--color-muted-foreground)'}
-            >
+            <Link href="/docs" className="nav-link text-sm font-medium">
               Documentation
             </Link>
-            <Link
-              href="/docs"
-              className="rounded-full px-4 py-2 text-sm font-medium transition-all"
-              style={{
-                background: 'var(--color-foreground)',
-                color: 'var(--color-background)',
-              }}
-            >
+            <Link href="/docs" className="btn-primary rounded-full px-4 py-2 text-sm font-medium">
               Browse Components
             </Link>
             <ThemeToggle />
@@ -58,21 +70,13 @@ export default function Home() {
             <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Link
                 href="/docs"
-                className="flex h-12 items-center justify-center rounded-full px-8 text-sm font-medium transition-all"
-                style={{
-                  background: 'var(--color-foreground)',
-                  color: 'var(--color-background)'
-                }}
+                className="btn-primary flex h-12 items-center justify-center rounded-full px-8 text-sm font-medium"
               >
                 Get Started
               </Link>
               <Link
                 href="/docs"
-                className="flex h-12 items-center justify-center rounded-full px-8 text-sm font-medium transition-all"
-                style={{
-                  border: '1px solid var(--color-border)',
-                  color: 'var(--color-foreground)'
-                }}
+                className="btn-secondary flex h-12 items-center justify-center rounded-full px-8 text-sm font-medium"
               >
                 View Components
               </Link>
@@ -171,11 +175,7 @@ export default function Home() {
             </p>
             <Link
               href="/docs"
-              className="inline-flex h-12 items-center justify-center rounded-full px-8 text-sm font-medium transition-all"
-              style={{
-                background: 'var(--color-foreground)',
-                color: 'var(--color-background)'
-              }}
+              className="btn-primary inline-flex h-12 items-center justify-center rounded-full px-8 text-sm font-medium"
             >
               View Documentation
             </Link>
