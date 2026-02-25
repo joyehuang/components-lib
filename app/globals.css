@@ -18,18 +18,16 @@
   --color-sidebar-muted: #999999;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    /* Dark theme colors */
-    --color-background: #000000;
-    --color-foreground: #ededed;
-    --color-muted: #1a1a1a;
-    --color-muted-foreground: #999999;
-    --color-border: #333333;
-    --color-sidebar-background: #000000;
-    --color-sidebar-foreground: #ffffff;
-    --color-sidebar-muted: #999999;
-  }
+.dark {
+  /* Dark theme colors */
+  --color-background: #000000;
+  --color-foreground: #ededed;
+  --color-muted: #1a1a1a;
+  --color-muted-foreground: #999999;
+  --color-border: #333333;
+  --color-sidebar-background: #000000;
+  --color-sidebar-foreground: #ffffff;
+  --color-sidebar-muted: #999999;
 }
 
 body {

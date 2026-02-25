@@ -2,6 +2,7 @@ import type { ReactNode } from 'react';
 import { DocsLayout } from 'fumadocs-ui/layouts/docs';
 import { source } from '@/lib/source';
 import Link from 'next/link';
+import { ThemeToggle } from '@/components/theme-toggle';
 import './docs.css';
 
 export default function Layout({ children }: { children: ReactNode }) {
@@ -11,6 +12,7 @@ export default function Layout({ children }: { children: ReactNode }) {
       nav={{
         title: <span className="font-semibold text-base">Components</span>,
         url: '/',
+        children: <ThemeToggle />,
       }}
       sidebar={{
         banner: (
