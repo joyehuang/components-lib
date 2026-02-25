@@ -37,7 +37,8 @@ export default function Example() {
       highlightDelay={${highlightDelay}}
       highlightDuration={${highlightDuration}}
       highlightDirection="${highlightDirection}"
-      className="text-2xl font-medium text-white"
+      className="text-2xl font-medium"
+      style={{ color: 'var(--color-foreground)' }}
     >
       ${sampleText}
     </BlurHighlight>
@@ -141,7 +142,8 @@ export default function Example() {
         highlightDuration={highlightDuration}
         highlightDirection={highlightDirection}
         viewportOptions={{ once: false, amount: 0.3 }}
-        className="text-2xl font-medium text-white"
+        className="text-2xl font-medium"
+        style={{ color: 'var(--color-foreground)' }}
       >
         {sampleText}
       </BlurHighlight>
